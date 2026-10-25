@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#243f35">
+  <meta name="description" content="以剑术和符文组建牌组，踏入雾林，找回最后的余火。一款可在手机浏览器游玩的原创单人卡牌策略游戏。">
+  <title>余烬牌途 · 雾林手札</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="engine.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="余烬牌途首页"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 36 20 20 37 4 20Z"/><path d="M20 10v20M12 20h16M15 14l10 12m0-12L15 26"/></svg><span>余烬牌途</span><small>雾林手札</small></a>
+      <nav class="header-tools" aria-label="游戏工具">
+        <button class="text-button" id="deck-button" title="查看全部卡牌"><span data-icon="book"></span><span>牌组 <b id="deck-count">10</b></span></button>
+        <button class="icon-button" id="sound-button" aria-label="开启音效" aria-pressed="false" title="开启音效"><span data-icon="soundoff"></span></button>
+        <button class="icon-button" id="help-button" aria-label="玩法说明" title="玩法说明"><span data-icon="help"></span></button>
+      </nav>
+    </header>
+    <main class="game-layout">
+      <aside class="journal" aria-label="旅途记录">
+        <div class="journal-heading"><span class="chapter-mark" data-icon="compass"></span><h1>穿过雾林</h1><p>循着余火，向林深处。</p></div>
+        <ol class="journey" id="journey" aria-label="五场闯关进度"></ol>
+        <div class="relic"><span data-icon="flame"></span><div><h2>余烬护符</h2><p>每场胜利后恢复 <strong>4</strong> 点生命</p></div></div>
+        <div class="journey-note"><span>旅人笔记</span><p id="story">雾气里，一根树枝长矛拦住了去路。</p><svg viewBox="0 0 130 30" aria-hidden="true"><path d="M3 25C26 1 49 36 72 14s34-11 55-9M30 16l-8-4m39 12 3-9m35-12 6 7"/></svg></div>
+        <button class="new-run" id="restart-button"><span data-icon="restart"></span>重新启程</button>
+      </aside>
+      <section class="play-area" aria-label="卡牌战斗">
+        <div class="battle-heading"><div><span class="location-dot"></span><span id="location">雾林入口</span><span class="encounter-kind" id="encounter-kind">普通遭遇</span></div><span id="round-label">回合 1</span></div>
+        <section class="battlefield" id="battlefield" aria-label="战场">
+          <div class="battle-topline"><span id="battle-caption">把未燃尽的故事，走成新的旅途。</span><span id="stage-label">1 / 5</span></div>
+          <div class="combatants" id="combatants">
+            <article class="combatant player" id="player-figure"><div class="portrait-frame"><div class="sprite sprite-0" role="img" aria-label="披着斗篷的旅人"></div></div><div class="character-info"><div class="character-name"><h2>逐火旅人</h2><span class="block-stat" id="player-block"></span></div><div class="health-line"><span data-icon="heart"></span><strong id="player-health">64 <small>/ 64</small></strong><span class="status-small" id="player-focus"></span></div><div class="health-track" role="meter" aria-label="旅人生命" id="player-meter"><div id="player-health-bar"></div></div></div></article>
+            <div class="battle-divider" aria-hidden="true"><svg viewBox="0 0 48 64"><path d="m10 12 28 40M38 12 10 52M7 42l12 10M29 52l12-10M9 10l5 2-4 5m24-5 5-2-1 7"/></svg></div>
+            <article class="combatant enemy" id="enemy-figure"><div class="intent" id="enemy-intent"></div><div class="portrait-frame"><div class="sprite sprite-1" id="enemy-sprite" role="img" aria-label="苔地窃贼"></div></div><div class="character-info"><div class="character-name"><h2 id="enemy-name">苔地窃贼</h2><span class="block-stat" id="enemy-block"></span></div><div class="health-line"><span data-icon="heart"></span><strong id="enemy-health">32 <small>/ 32</small></strong><span class="status-small" id="enemy-status"></span></div><div class="health-track enemy-health" role="meter" aria-label="敌人生命" id="enemy-meter"><div id="enemy-health-bar"></div></div></div></article>
+          </div>
+          <div class="battle-footer"><span><i></i> 你的回合</span><span id="intent-hint">先看敌人的意图，再决定出牌。</span></div>
+          <div id="floating-effects" aria-hidden="true"></div>
+        </section>
+        <section class="phase-panel" id="phase-panel" hidden aria-live="polite"></section>
+        <div class="combat-log" aria-live="polite" aria-atomic="true"><span data-icon="quill"></span><p id="latest-log">旅途已经开始。轻触手牌，准备出招。</p><button id="log-button" aria-label="查看战斗记录">战斗记录 <span data-icon="chevron"></span></button></div>
+        <section class="hand-section" id="hand-section" aria-label="我的手牌">
+          <div class="hand-heading"><h2>你的手牌 <small>轻触选牌，再点打出</small></h2><div class="pile-buttons"><button id="draw-button"><span data-icon="cards"></span>抽牌 <b id="draw-count">5</b></button><button id="discard-button">弃牌 <b id="discard-count">0</b></button></div></div>
+          <div class="hand" id="hand" role="group" aria-label="选择要打出的卡牌"></div>
+        </section>
+        <section class="action-bar" id="action-bar" aria-label="出牌操作">
+          <div class="energy"><span class="energy-sigil" data-icon="energy"></span><div><strong><span id="energy-count">3</span><small> / 3</small></strong><span>本回合能量</span></div></div>
+          <div class="selected-summary" id="selected-summary">剑与符文，皆由你选择。</div>
+          <button class="primary-button play-button" id="play-button" disabled>选择一张手牌</button>
+          <button class="end-button" id="end-turn">结束回合<span data-icon="arrow"></span></button>
+        </section>
+        <div class="field-notes"><span id="save-status">进度自动保存在当前浏览器</span><span class="keyboard-hint">数字键选牌 · Enter 出牌 · 空格结束回合</span></div>
+      </section>
+    </main>
+    <footer class="colophon"><span>每一张牌，都是旅途的一种可能。</span><span>原创玩法原型 · v0.1</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <dialog id="modal" aria-labelledby="modal-title"><div class="modal-header"><h2 id="modal-title"></h2><button class="icon-button" id="close-modal" aria-label="关闭窗口"><span data-icon="close"></span></button></div><div id="modal-body"></div></dialog>
+</body>
+</html>

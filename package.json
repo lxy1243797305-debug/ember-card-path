@@ -1,0 +1,1 @@
+{"name":"ember-card-path","version":"0.1.0","private":true,"description":"余烬牌途：手机浏览器单人卡牌闯关原型","scripts":{"start":"node server.cjs","test":"node --test tests/*.cjs"}}

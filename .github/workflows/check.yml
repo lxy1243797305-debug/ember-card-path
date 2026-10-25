@@ -1,0 +1,18 @@
+name: Check game
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  rules-and-export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check dist/engine.js
+      - run: node --check dist/app.js
+      - run: node --test tests/engine.cjs
+      - run: node export-offline.cjs

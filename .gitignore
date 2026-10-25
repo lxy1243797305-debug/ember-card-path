@@ -1,0 +1,12 @@
+node_modules/
+build/
+.cache/
+.openai/
+.impeccable/
+.env
+.env.*
+!.env.example
+*.zip
+*.tar.gz
+Thumbs.db
+.DS_Store
