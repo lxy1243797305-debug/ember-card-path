@@ -20,7 +20,7 @@ cd ember-card-path
 node server.cjs
 ```
 
-打开 **http://localhost:4173**。需要 Node.js 20 或更新版本，无需 `npm install`。
+打开 [http://localhost:4173](http://localhost:4173)。需要 Node.js 20 或更新版本，无需 `npm install`。
 
 ## 玩法
 
